@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Model
 {
@@ -11,8 +12,12 @@ namespace backend.Model
         public string Name { get; set; }
 
         [Required]
-        public string Task { get; set; }
-
+    
         public string ImageURI { get; set; }
+
+        public ICollection<Task> Tasks { get; set; } = new List<Task>();
+
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     }
 }

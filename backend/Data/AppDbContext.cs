@@ -8,20 +8,35 @@ namespace backend.Data
         public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Task>()
+                .HasOne(p => p.Person)
+                .WithMany(s => s.Tasks)
+                .HasForeignKey(p => p.PersonId);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Person)
+                .WithMany(s => s.Comments)
+                .HasForeignKey(c => c.PersonId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Task)
+                .WithMany(p => p.Comments)
+                .HasForeignKey(c => c.TaskId);
+        }
+
+
+
+
+
+
+
+
     }
 }
-
-/* 
-
-DbContext associated to a model to:
-
-Write and execute queries
-Materialize query results as entity objects
-Track changes that are made to those objects
-Persist object changes back on the database
-Bind objects in memory to UI controls
-
-DbContext is single threaded and will 
-not work with multithreaded request 
-
- */
