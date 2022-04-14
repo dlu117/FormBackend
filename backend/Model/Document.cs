@@ -1,4 +1,4 @@
-﻿/*using backend.Model;
+﻿using backend.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +10,7 @@ namespace backend.Model
         DATE_2022
     }
 
-    public class Task
+    public class Document
     {
         [Key]
         public int Id { get; set; }
@@ -40,4 +40,3 @@ namespace backend.Model
     }
 }
 
-*/

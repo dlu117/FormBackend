@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.Model
@@ -14,7 +14,7 @@ namespace backend.Model
         [Required]
         public int TaskId { get; set; }
 
-        public Task Task { get; set; } = null!;
+        public Document Document { get; set; } = null!;
 
         [Required]
         public int PersonId { get; set; }
@@ -27,5 +27,3 @@ namespace backend.Model
 
     }
 }
-
-*/

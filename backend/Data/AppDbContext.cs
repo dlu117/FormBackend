@@ -9,14 +9,14 @@ namespace backend.Data
 
         public DbSet<Person> Persons { get; set; }
 
-        /*
-        public DbSet<Task> Documents { get; set; }
+        
+        public DbSet<Document> Documents { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Task>()
+            modelBuilder.Entity<Document>()
                 .HasOne(p => p.Person)
                 .WithMany(s => s.Documents)
                 .HasForeignKey(p => p.PersonId);
@@ -28,16 +28,10 @@ namespace backend.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Task)
+                .HasOne(c => c.Document)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.TaskId);
         }
-
-
-
-        */
-
-
 
 
     }

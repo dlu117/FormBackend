@@ -18,9 +18,9 @@ namespace backend.Model
 
         public string Title { get; set; }
 
-        //public ICollection<Documents> Documents { get; set; } = new List<Task>();
+        public ICollection<Document> Documents { get; set; } = new List<Document>();
 
-        //public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }
