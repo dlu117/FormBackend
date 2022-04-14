@@ -8,7 +8,9 @@ namespace backend.Data
         public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+
+        /*
+        public DbSet<Task> Documents { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
 
@@ -16,7 +18,7 @@ namespace backend.Data
         {
             modelBuilder.Entity<Task>()
                 .HasOne(p => p.Person)
-                .WithMany(s => s.Tasks)
+                .WithMany(s => s.Documents)
                 .HasForeignKey(p => p.PersonId);
 
             modelBuilder.Entity<Comment>()
@@ -33,7 +35,7 @@ namespace backend.Data
 
 
 
-
+        */
 
 
 

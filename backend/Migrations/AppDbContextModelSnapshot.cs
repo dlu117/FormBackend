@@ -142,6 +142,12 @@ namespace backend.Migrations
                     b.Navigation("Person");
                 });
 
+            /*
+            .OnDelete(DeleteBehavior.NoAction); is only used on Comment. 
+             This is because Microsoft SQL Server doesn't support multiple cascades on one table. 
+             Will not be removing any students/projects so we can just disable cascade (remove when a parent is removed)
+            */
+
             modelBuilder.Entity("backend.Model.Person", b =>
                 {
                     b.Navigation("Comments");

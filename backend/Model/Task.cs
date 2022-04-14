@@ -1,4 +1,4 @@
-﻿using backend.Model;
+﻿/*using backend.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,3 +39,5 @@ namespace backend.Model
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
+
+*/

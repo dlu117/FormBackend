@@ -15,9 +15,12 @@ namespace backend.Model
     
         public string ImageURI { get; set; }
 
-        public ICollection<Task> Tasks { get; set; } = new List<Task>();
 
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public string Title { get; set; }
+
+        //public ICollection<Documents> Documents { get; set; } = new List<Task>();
+
+        //public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }

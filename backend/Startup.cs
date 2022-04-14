@@ -28,6 +28,7 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
