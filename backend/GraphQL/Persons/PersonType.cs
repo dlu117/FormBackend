@@ -1,4 +1,4 @@
-﻿/*using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace backend.GraphQL.Persons
         protected override void Configure(IObjectTypeDescriptor<Person> descriptor)
         {
             descriptor.Field(s => s.Id).Type<NonNullType<IdType>>();
-            descriptor.Field(s => s.Documents).Type<NonNullType<StringType>>();
+            descriptor.Field(s => s.Title).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.Name).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.ImageURI).Type<NonNullType<StringType>>();
 
@@ -52,4 +52,3 @@ namespace backend.GraphQL.Persons
 }
 
 
-*/

@@ -1,7 +1,8 @@
 using backend.Data;
-//using backend.GraphQL.Comments;
+using backend.GraphQL.Comments;
+using backend.GraphQL.Documents;
 using backend.GraphQL.Persons;
-//using backend.GraphQL.Documents;
+using backendGraphQL.Documents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,13 +35,12 @@ namespace backend
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                .AddTypeExtension<PersonQueries>();
-                //.AddTypeExtension<DocumentQueries>()
-               // .AddType<DocumentType>()
-                //.AddType<PersonType>()
-                //.AddType<CommentType>();
+                    .AddTypeExtension<PersonQueries>()
+                    .AddTypeExtension<DocumentQueries>();
+              //  .AddType<DocumentType>()
+              //  .AddType<PersonType>()
+               // .AddType<CommentType>();
         }
-
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

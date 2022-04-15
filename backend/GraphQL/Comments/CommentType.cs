@@ -1,4 +1,4 @@
-﻿/*using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Threading;
 using HotChocolate;
 using HotChocolate.Types;
@@ -34,7 +34,7 @@ namespace backend.GraphQL.Comments
 
         private class Resolvers
         {
-            public async Task<Task> GetDocument(Comment comment, [ScopedService] AppDbContext context,
+            public async Task<Document> GetDocument(Comment comment, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
                 return await context.Documents.FindAsync(new object[] { comment.PersonId }, cancellationToken);
@@ -49,4 +49,3 @@ namespace backend.GraphQL.Comments
     }
 }
 
-*/

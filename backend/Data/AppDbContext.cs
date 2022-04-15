@@ -8,8 +8,6 @@ namespace backend.Data
         public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
-
-        
         public DbSet<Document> Documents { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
