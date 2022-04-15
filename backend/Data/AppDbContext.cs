@@ -15,7 +15,7 @@ namespace backend.Data
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        { 
             modelBuilder.Entity<Document>()
                 .HasOne(p => p.Person)
                 .WithMany(s => s.Documents)
@@ -30,9 +30,8 @@ namespace backend.Data
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Document)
                 .WithMany(p => p.Comments)
-                .HasForeignKey(c => c.TaskId);
+                .HasForeignKey(c => c.DocumentId);
         }
-
 
     }
 }

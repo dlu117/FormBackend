@@ -4,7 +4,7 @@ using HotChocolate;
 using HotChocolate.Types;
 using backend.Data;
 using backend.Model;
-using backend.GraphQL.Tasks;
+using backend.GraphQL.Documents;
 
 namespace backend.GraphQL.Comments
 {
@@ -16,14 +16,14 @@ namespace backend.GraphQL.Comments
             descriptor.Field(s => s.Content).Type<NonNullType<StringType>>();
 
             descriptor
-                .Field(s => s.Task)
-                .ResolveWith<Resolvers>(r => r.GetProject(default!, default!, default))
+                .Field(s => s.Document)
+                .ResolveWith<Resolvers>(r => r.GetDocument(default!, default!, default))
                 .UseDbContext<AppDbContext>()
                 .Type<NonNullType<CommentType>>();
 
             descriptor
                 .Field(s => s.Person)
-                .ResolveWith<Resolvers>(r => r.GetStudent(default!, default!, default))
+                .ResolveWith<Resolvers>(r => r.GetPerson(default!, default!, default))
                 .UseDbContext<AppDbContext>()
                 .Type<NonNullType<CommentType>>();
 
@@ -34,16 +34,16 @@ namespace backend.GraphQL.Comments
 
         private class Resolvers
         {
-            public async Task<Task> GetTask(Comment comment, [ScopedService] AppDbContext context,
+            public async Task<Task> GetDocument(Comment comment, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Tasks.FindAsync(new object[] { comment.ProjectId }, cancellationToken);
+                return await context.Documents.FindAsync(new object[] { comment.PersonId }, cancellationToken);
             }
 
-            public async Task<Student> GetStudent(Comment comment, [ScopedService] AppDbContext context,
+            public async Task<Person> GetPerson(Comment comment, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Students.FindAsync(new object[] { comment.StudentId }, cancellationToken);
+                return await context.Persons.FindAsync(new object[] { comment.PersonId }, cancellationToken);
             }
         }
     }

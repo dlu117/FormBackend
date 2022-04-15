@@ -1,5 +1,7 @@
 using backend.Data;
+//using backend.GraphQL.Comments;
 using backend.GraphQL.Persons;
+//using backend.GraphQL.Documents;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,11 +30,15 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
                 .AddTypeExtension<PersonQueries>();
+                //.AddTypeExtension<DocumentQueries>()
+               // .AddType<DocumentType>()
+                //.AddType<PersonType>()
+                //.AddType<CommentType>();
         }
 
 

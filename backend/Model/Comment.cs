@@ -12,7 +12,7 @@ namespace backend.Model
         public string Content { get; set; } = null!;
 
         [Required]
-        public int TaskId { get; set; }
+        public int DocumentId { get; set; }
 
         public Document Document { get; set; } = null!;
 

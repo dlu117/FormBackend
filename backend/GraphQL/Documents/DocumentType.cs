@@ -1,20 +1,20 @@
-﻿using System.Threading;
+﻿/*using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.Types;
 using backend.Data;
-/*using backend.Model;
+using backend.Model;
 using backend.GraphQL.Persons;
 using backend.GraphQL.Comments;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.GraphQL.Tasks
+namespace backend.GraphQL.Documents
 {
-    public class TaskType : ObjectType<Model.Task>
+    public class DocumentType : ObjectType<Document>
     {
-        protected override void Configure(IObjectTypeDescriptor<Model.Task> descriptor)
+        protected override void Configure(IObjectTypeDescriptor<Document> descriptor)
         {
             descriptor.Field(p => p.Id).Type<NonNullType<IdType>>();
             descriptor.Field(p => p.Name).Type<NonNullType<StringType>>();
@@ -42,7 +42,7 @@ namespace backend.GraphQL.Tasks
 
         private class Resolvers
         {
-            public async Task<Person> GetStudent(Person person, [ScopedService] AppDbContext context,
+            public async Task<Person> GetPerson(Person person, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
                 return await context.Persons.FindAsync(new object[] { comment.personId }, cancellationToken);
@@ -51,7 +51,7 @@ namespace backend.GraphQL.Tasks
             public async Task<IEnumerable<Comment>> GetComments(Person person, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Comments.Where(c => c.TaskId == task.Id).ToArrayAsync(cancellationToken);
+                return await context.Comments.Where(c => c.DocumentId == document.Id).ToArrayAsync(cancellationToken);
             }
         }
     }

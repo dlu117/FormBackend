@@ -3,12 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class AddTaskAndComment : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tasks",
+                name: "Persons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageURI = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Documents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -23,9 +38,9 @@ namespace backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tasks", x => x.Id);
+                    table.PrimaryKey("PK_Documents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tasks_Persons_PersonId",
+                        name: "FK_Documents_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
@@ -39,7 +54,7 @@ namespace backend.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TaskId = table.Column<int>(type: "int", nullable: false),
+                    DocumentId = table.Column<int>(type: "int", nullable: false),
                     PersonId = table.Column<int>(type: "int", nullable: false),
                     Modified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -48,17 +63,22 @@ namespace backend.Migrations
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Comments_Documents_DocumentId",
+                        column: x => x.DocumentId,
+                        principalTable: "Documents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Comments_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Comments_Tasks_TaskId",
-                        column: x => x.TaskId,
-                        principalTable: "Tasks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_DocumentId",
+                table: "Comments",
+                column: "DocumentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PersonId",
@@ -66,13 +86,8 @@ namespace backend.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_TaskId",
-                table: "Comments",
-                column: "TaskId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_PersonId",
-                table: "Tasks",
+                name: "IX_Documents_PersonId",
+                table: "Documents",
                 column: "PersonId");
         }
 
@@ -82,7 +97,10 @@ namespace backend.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Persons");
         }
     }
 }

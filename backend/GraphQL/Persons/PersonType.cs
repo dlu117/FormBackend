@@ -7,7 +7,7 @@ using HotChocolate;
 using HotChocolate.Types;
 using backend.Data;
 using backend.Model;
-using backend.GraphQL.Tasks;
+using backend.GraphQL.Documents;
 using backend.GraphQL.Comments;
 
 namespace backend.GraphQL.Persons
@@ -17,15 +17,15 @@ namespace backend.GraphQL.Persons
         protected override void Configure(IObjectTypeDescriptor<Person> descriptor)
         {
             descriptor.Field(s => s.Id).Type<NonNullType<IdType>>();
-            descriptor.Field(s => s.Tasks).Type<NonNullType<StringType>>();
+            descriptor.Field(s => s.Documents).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.Name).Type<NonNullType<StringType>>();
             descriptor.Field(s => s.ImageURI).Type<NonNullType<StringType>>();
 
             descriptor
-                .Field(s => s.Tasks)
-                .ResolveWith<Resolvers>(r => r.GetTasks(default!, default!, default))
+                .Field(s => s.Documents)
+                .ResolveWith<Resolvers>(r => r.GetDocuments(default!, default!, default))
                 .UseDbContext<AppDbContext>()
-                .Type<NonNullType<ListType<NonNullType<TaskType>>>>();
+                .Type<NonNullType<ListType<NonNullType<DocumentType>>>>();
 
             descriptor
                 .Field(s => s.Comments)
@@ -36,10 +36,10 @@ namespace backend.GraphQL.Persons
 
         private class Resolvers
         {
-            public async Task<IEnumerable<Model.Task>> GetTasks(Person person, [ScopedService] AppDbContext context,
+            public async Task<IEnumerable<Document>> GetDocuments(Person person, [ScopedService] AppDbContext context,
                 CancellationToken cancellationToken)
             {
-                return await context.Tasks.Where(c => c.PersonId == person.Id).ToArrayAsync(cancellationToken);
+                return await context.Documents.Where(c => c.PersonId == person.Id).ToArrayAsync(cancellationToken);
             }
 
             public async Task<IEnumerable<Comment>> GetComments(Person person, [ScopedService] AppDbContext context,
@@ -50,5 +50,6 @@ namespace backend.GraphQL.Persons
         }
     }
 }
+
 
 */

@@ -10,8 +10,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220413123151_AddTaskAndComment")]
-    partial class AddTaskAndComment
+    [Migration("20220414110601_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,48 +35,25 @@ namespace backend.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DocumentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("DocumentId");
 
-                    b.HasIndex("TaskId");
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("backend.Model.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImageURI")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Task")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Persons");
-                });
-
-            modelBuilder.Entity("backend.Model.Task", b =>
+            modelBuilder.Entity("backend.Model.Document", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,32 +88,55 @@ namespace backend.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("backend.Model.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageURI")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("backend.Model.Comment", b =>
                 {
+                    b.HasOne("backend.Model.Document", "Document")
+                        .WithMany("Comments")
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Model.Person", "Person")
                         .WithMany("Comments")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("backend.Model.Task", "Task")
-                        .WithMany("Comments")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Document");
 
                     b.Navigation("Person");
-
-                    b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("backend.Model.Task", b =>
+            modelBuilder.Entity("backend.Model.Document", b =>
                 {
                     b.HasOne("backend.Model.Person", "Person")
-                        .WithMany("Tasks")
+                        .WithMany("Documents")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -144,16 +144,16 @@ namespace backend.Migrations
                     b.Navigation("Person");
                 });
 
+            modelBuilder.Entity("backend.Model.Document", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("backend.Model.Person", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("backend.Model.Task", b =>
-                {
-                    b.Navigation("Comments");
+                    b.Navigation("Documents");
                 });
 #pragma warning restore 612, 618
         }
