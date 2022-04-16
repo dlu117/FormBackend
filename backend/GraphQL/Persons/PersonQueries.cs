@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using HotChocolate;
-using backend.Data;
-using backend.Model;
-using HotChocolate.Types;
+﻿using backend.Data;
 using backend.Extensions;
+using backend.Model;
+using HotChocolate;
+using HotChocolate.Types;
+using System.Linq;
 
 namespace backend.GraphQL.Persons
 {

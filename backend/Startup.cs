@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MSAYearbook.GraphQL.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,8 +36,12 @@ namespace backend
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                    .AddTypeExtension<PersonQueries>()
                     .AddTypeExtension<DocumentQueries>()
+                    .AddTypeExtension<PersonQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<PersonMutations>()
+                    .AddTypeExtension<DocumentMutations>()
+                    .AddTypeExtension<CommentMutations>()
               .AddType<DocumentType>()
               .AddType<PersonType>()
               .AddType<CommentType>();
