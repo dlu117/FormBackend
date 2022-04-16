@@ -36,10 +36,10 @@ namespace backend
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<PersonQueries>()
-                    .AddTypeExtension<DocumentQueries>();
-              //  .AddType<DocumentType>()
-              //  .AddType<PersonType>()
-               // .AddType<CommentType>();
+                    .AddTypeExtension<DocumentQueries>()
+              .AddType<DocumentType>()
+              .AddType<PersonType>()
+              .AddType<CommentType>();
         }
 
 
