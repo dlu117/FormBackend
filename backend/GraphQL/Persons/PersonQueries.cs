@@ -10,9 +10,11 @@ namespace backend.GraphQL.Persons
     [ExtendObjectType(name: "Query")]
     public class PersonQueries
     {
+        [UseAppDbContext]
+        [UsePaging] // without it no connections can form 
         public IQueryable<Person> GetPersons([ScopedService] AppDbContext context)
         {
-            return context.Persons;
+            return context.Persons; 
         }
 
         [UseAppDbContext]
