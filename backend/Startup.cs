@@ -3,6 +3,7 @@ using backend.GraphQL.Comments;
 using backend.GraphQL.Documents;
 using backend.GraphQL.Persons;
 using backendGraphQL.Documents;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,10 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using MSAYearbook.GraphQL.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace backend
@@ -33,6 +36,21 @@ namespace backend
         {
             services.AddPooledDbContextFactory<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            //var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]));
+
+            /*services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters
+                        {
+                            ValidIssuer = "Person-backend",
+                            ValidAudience = "relevant-people",
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = signingKey
+                        };
+                });
+            */
             services
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
@@ -67,7 +85,7 @@ namespace backend
 
             app.UseRouting();
 
-            /*app.UseAuthorization();*/
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

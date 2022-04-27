@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using backend.Model;
 
+// db context is single threaded 
 namespace backend.Data
 {
     public class AppDbContext : DbContext //class extension of Db context
