@@ -84,13 +84,14 @@ namespace backend
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-           
 
-            app.UseCors(options =>
-             options.WithOrigins("http://localhost:3000/")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
 
+            app.UseCors(builder => builder
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .SetIsOriginAllowed((host) => true)
+              .AllowCredentials()
+          );
             app.UseRouting();
 
             //app.UseAuthorization();
