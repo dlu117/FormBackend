@@ -52,6 +52,7 @@ namespace backend
                 });
             */
             services
+                .AddCors()
                 .AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<DocumentQueries>()
@@ -84,6 +85,11 @@ namespace backend
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors(options =>
+             options.WithOrigins("http://localhost:3000/")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 
             //app.UseAuthorization();
 
