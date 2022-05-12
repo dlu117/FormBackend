@@ -20,10 +20,10 @@ namespace backend.Model
         [Required]
         public string Description { get; set; } = null!;
 
-        [Required]
+
         public string Link { get; set; } = null!;
 
-        [Required]
+       
         public Date Date { get; set; }
 
         [Required]

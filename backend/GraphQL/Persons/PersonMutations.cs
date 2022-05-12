@@ -30,6 +30,17 @@ namespace backend.GraphQL.Persons
         }
 
         [UseAppDbContext]
+        public async Task<Person> DeletePersonAsync(DeletePersonInput input,
+       [ScopedService] AppDbContext context, CancellationToken cancellationToken)
+        {
+            var person = await context.Persons.FindAsync(int.Parse(input.PersonId));
+            context.Persons.Remove(person);
+            await context.SaveChangesAsync(cancellationToken);
+            return person;
+        }
+
+
+        [UseAppDbContext]
         public async Task<Person> EditPersonAsync(EditPersonInput input,
                 [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {

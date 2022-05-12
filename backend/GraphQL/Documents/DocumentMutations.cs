@@ -35,6 +35,17 @@ namespace backend.GraphQL.Documents
         }
 
         [UseAppDbContext]
+        public async Task<Document> DeleteDocumentAsync(DeleteDocumentInput input,
+           [ScopedService] AppDbContext context, CancellationToken cancellationToken)
+        {
+            var document = await context.Documents.FindAsync(int.Parse(input.DocumentId));
+            context.Documents.Remove(document);
+            await context.SaveChangesAsync(cancellationToken);
+            return document;
+        }
+
+
+        [UseAppDbContext]
         public async Task<Document> EditDocumentAsync(EditDocumentInput input,
             [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {

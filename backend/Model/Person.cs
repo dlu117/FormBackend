@@ -13,7 +13,6 @@ namespace backend.Model //namespace name
 
         public string ImageURI { get; set; }
 
-        [Required]
         public string Title { get; set; }
 
         public ICollection<Document> Documents { get; set; } = new List<Document>();
